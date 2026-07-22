@@ -1,5 +1,7 @@
 # ICP Sourcing Pipeline
 
+> **Status:** scaffolding and design committed. Adapters and tests in progress.
+
 Pulls company data from public directories, normalizes it to one schema, and
 emits a Clay-ready CSV of your ICP.
 
