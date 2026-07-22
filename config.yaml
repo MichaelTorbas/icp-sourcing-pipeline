@@ -1,0 +1,27 @@
+# config.yaml — the ICP definition. This file is policy, not a settings
+# dump: each field says who we're targeting and why, not just what value
+# it's set to. CLI flags override any of these for one-off runs.
+# See README.md "Design notes" for the reasoning behind the G2 section.
+
+filters:
+  country: US        # Sales only works US accounts right now.
+  category: b2b       # Consumer companies are out of scope for this ICP.
+  headcount:
+    min: 11            # Below this there's usually no buying committee to sell into.
+    max: 200           # Above this it's an enterprise motion, handled elsewhere.
+
+sources:
+  yc:
+    # YC's public company directory, filtered server-side where the site supports it.
+    min_rows: 20        # Fewer than this on a real run means the scrape broke, not that YC is empty.
+
+  g2:
+    # Used only to build a ground-truth label (known_onboarding_vendor).
+    # Never used to filter the leads list — see README: "Why G2 produces a label, not a filter."
+    category_slug: customer-onboarding
+    min_rows: 10
+
+fetch:
+  user_agent: "icp-sourcing-pipeline/0.1 (contact: mikhailtorbas@gmail.com)"
+  rate_limit_seconds: 1.0
+  max_retries: 3
