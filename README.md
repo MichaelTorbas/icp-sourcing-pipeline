@@ -47,6 +47,17 @@ scope — its ToS doesn't permit this kind of scraping. Adapters check for a
 public JSON endpoint before falling back to HTML parsing, since JSON is more
 stable and less likely to break silently.
 
+**YC adapter, specifically:** `ycombinator.com/robots.txt` disallows
+`/companies?*` — the filtered HTML directory view. This adapter never
+requests that page; it queries the Algolia endpoint the page's own
+client-side JS calls, using the same search-only, publicly-scoped key
+embedded in the page (read-only, restricted to public listings). robots.txt
+says nothing about that host, since it's a separate domain — but the
+`Disallow` is a signal about the company-list view generally, so this is
+logged as a judgment call, not a clean pass. Kept low-volume (`max_records`
+in `config.yaml`, default 300) with a real delay between pages, since this
+is personal research, not an index crawl.
+
 ## Design notes
 
 **Why `domain_raw` and `domain` are both kept.** Sources format domains

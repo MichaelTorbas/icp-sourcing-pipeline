@@ -14,6 +14,14 @@ sources:
   yc:
     # YC's public company directory, filtered server-side where the site supports it.
     min_rows: 20        # Fewer than this on a real run means the scrape broke, not that YC is empty.
+    # 1000 covers the full matched set (623 at time of writing) with headroom
+    # for growth. We take the complete matched set, not a rank-truncated
+    # sample: Algolia's default ordering is relevance-based, so truncating
+    # would bias toward better-known companies and make run-to-run diffs
+    # meaningless. If the matched set ever exceeds this, the adapter should
+    # flag it rather than silently truncate — raise this deliberately, don't
+    # let it become an accidental sampling cap.
+    max_records: 1000
 
   g2:
     # Used only to build a ground-truth label (known_onboarding_vendor).
