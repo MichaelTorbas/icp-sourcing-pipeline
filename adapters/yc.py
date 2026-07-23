@@ -195,6 +195,7 @@ def fetch_all(
     page = 0
     nb_hits = 0
     dropped_no_domain = 0
+    hit_the_cap = False
 
     while True:
         body = build_query_body(
@@ -214,6 +215,7 @@ def fetch_all(
         page += 1
         reached_last_page = page >= response.get("nbPages", 0)
         reached_cap = len(rows) >= max_records
+        hit_the_cap = hit_the_cap or reached_cap
         if reached_last_page or reached_cap:
             break
 
@@ -227,9 +229,11 @@ def fetch_all(
         "rows_fetched": len(rows),
         # Hits examined that had no usable domain and were dropped before
         # ever becoming a row (CLAUDE.md: never write a row without one).
+        # This is a normal, expected shortfall — not truncation.
         "dropped_no_domain": dropped_no_domain,
-        # True means max_records clipped the real matched set — a config
-        # bound, not "the source is empty." See config.yaml's max_records
+        # True only if max_records cut pagination short — a config bound,
+        # not "the source is empty" and not the (expected) gap from
+        # dropped-no-domain rows above. See config.yaml's max_records
         # comment: this should be raised deliberately, not hit silently.
-        "truncated": len(rows) < nb_hits,
+        "truncated": hit_the_cap,
     }
