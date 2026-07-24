@@ -124,6 +124,7 @@ adapters/                              one module per source, each emits the com
 data/known_onboarding_vendors.yaml      curated ground-truth vendor list, committed
 scripts/                                standalone tools, not part of the run pipeline (e.g. candidate scan)
 .claude/hooks/                          Claude Code hooks enforcing invariants outside the codebase, see docs/DESIGN.md
+.claude/skills/                         Claude Code skills (e.g. add-source-adapter: checklist for new sources)
 out/                                    run outputs (gitignored)
 cache/                                  dev-only raw response cache (gitignored), see --no-cache
 examples/sample_leads.csv              redacted sample of output shape, committed
