@@ -37,6 +37,7 @@ def test_parse_response_derives_headcount_band_from_team_size():
     assert hellosign["industry"] == "B2B"
     assert hellosign["batch"] == "Winter 2011"
     assert hellosign["status"] == "Acquired"
+    assert "Simplify Work" in hellosign["long_description"]
 
 
 def test_parse_hit_drops_rows_with_no_usable_domain():

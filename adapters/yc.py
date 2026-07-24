@@ -134,6 +134,7 @@ def parse_hit(hit: dict[str, Any], pulled_at: str) -> dict[str, Any] | None:
         "tags": hit.get("tags"),
         "regions": hit.get("regions"),
         "one_liner": hit.get("one_liner"),
+        "long_description": hit.get("long_description"),
     }
 
 

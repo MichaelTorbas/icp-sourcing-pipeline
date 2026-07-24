@@ -1,0 +1,62 @@
+# Curated ground-truth list for known_onboarding_vendor — see CLAUDE.md
+# "Hard constraints" (this label never joins the leads file) and
+# docs/DESIGN.md "Source vetting: G2 dropped" for why this replaces a live
+# G2 category scrape. Hand-maintained: add/remove entries by editing this
+# file directly, not by fuzzy-matching a scrape — see README "Why the G2
+# match is exact-domain-only" for why a false-positive label is worse than
+# a missed one.
+#
+# domain — normalized form (lowercase, no protocol/www/path); matched
+#   exact against the leads set's `domain` field, no fuzzy matching.
+# vendor — display name.
+# why — one line on why this company competes in customer onboarding
+#   software specifically, not general product analytics/support.
+
+vendors:
+  - domain: appcues.com
+    vendor: Appcues
+    why: In-product onboarding flows, checklists, and tooltips for SaaS user activation.
+
+  - domain: pendo.io
+    vendor: Pendo
+    why: Product analytics paired with in-app guides used to build onboarding flows.
+
+  - domain: whatfix.com
+    vendor: Whatfix
+    why: Digital adoption platform purpose-built for in-app onboarding and guidance.
+
+  - domain: userpilot.com
+    vendor: Userpilot
+    why: No-code in-app onboarding flows and checklists for product-led SaaS.
+
+  - domain: chameleon.io
+    vendor: Chameleon
+    why: In-product onboarding tours, tooltips, and microsurveys for user activation.
+
+  - domain: userflow.com
+    vendor: Userflow
+    why: No-code product tours and checklists built specifically for onboarding.
+
+  - domain: storylane.io
+    vendor: Storylane
+    why: Interactive product demos used in self-serve trial onboarding.
+
+  - domain: arcade.software
+    vendor: Arcade
+    why: Interactive product walkthroughs used for onboarding and activation.
+
+  - domain: rocketlane.com
+    vendor: Rocketlane
+    why: Customer onboarding and implementation project management for B2B SaaS.
+
+  - domain: northpass.com
+    vendor: Northpass
+    why: Customer education and training platform used to onboard new users.
+
+  - domain: userguiding.com
+    vendor: UserGuiding
+    why: No-code product walkthroughs and checklists for new-user onboarding.
+
+  - domain: productfruits.com
+    vendor: Product Fruits
+    why: Onboarding checklists, hints, and walkthroughs for web apps.

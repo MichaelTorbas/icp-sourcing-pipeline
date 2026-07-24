@@ -1,7 +1,7 @@
 # config.yaml — the ICP definition. This file is policy, not a settings
 # dump: each field says who we're targeting and why, not just what value
 # it's set to. CLI flags override any of these for one-off runs.
-# See README.md "Design notes" for the reasoning behind the G2 section.
+# See README.md "Design notes" for the reasoning behind the onboarding_vendors section.
 
 filters:
   country: US        # Sales only works US accounts right now.
@@ -23,11 +23,23 @@ sources:
     # let it become an accidental sampling cap.
     max_records: 1000
 
-  g2:
-    # Used only to build a ground-truth label (known_onboarding_vendor).
-    # Never used to filter the leads list — see README: "Why G2 produces a label, not a filter."
-    category_slug: customer-onboarding
-    min_rows: 10
+  onboarding_vendors:
+    # Curated local list (data/known_onboarding_vendors.yaml), not a live
+    # scrape — G2 was dropped, see docs/DESIGN.md "Source vetting: G2
+    # dropped." This same file and floor are read by two adapters:
+    #   - adapters/onboarding_vendors.py: builds the ground-truth label
+    #     (known_onboarding_vendor). Never used to filter the leads list —
+    #     see README: "Why the vendor list produces a label, not a filter."
+    #   - adapters/manual_seed.py: injects these companies into the leads
+    #     set itself (flagged source=manual_seed), since most of them are
+    #     real ICP-fitting companies that YC — the only live fetcher —
+    #     never surfaces. Only reads `domain`/`vendor`, never `why`.
+    vendor_list_path: data/known_onboarding_vendors.yaml
+    # A floor on vendors *loaded from the file*, not on how many leads
+    # happen to match — that depends on the run's actual companies, not on
+    # whether this source is healthy. Fewer than this loading means the
+    # YAML broke or got truncated, not that few vendors exist.
+    min_rows: 8
 
 fetch:
   user_agent: "icp-sourcing-pipeline/0.1 (contact: mikhailtorbas@gmail.com)"
